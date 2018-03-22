@@ -1,0 +1,40 @@
+#signInForm {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#contentForm {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: content-box;
+    padding: 50px 100px;
+}
+
+#signInContent {
+    margin: 5px;
+    padding: 10px;
+}
+
+#cancelButton {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+}
+#submitButton {
+    padding: 10px;
+    margin: 10px;
+    width: 80px;
+    border-radius: 8px;
+}
+#submitButton:hover, #cancelButton:hover {
+    background-color: #DCDCDC;
+}
+
+input {
+    width: 150px;
+}

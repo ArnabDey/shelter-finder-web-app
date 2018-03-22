@@ -1,0 +1,17 @@
+.redirectpage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+ button {
+    padding: 12px 30px;
+    margin: 20px;
+    border-radius: 8px;
+ }
+
+ #entryButton {
+    margin: 20px;
+ }
