@@ -26,7 +26,7 @@ class MainScreen extends Component {
     if (this.props.places) {
     return _.map(this.props.places,(sample) => {
       return(
-              <tr key = {sample.UniqueKey}
+              <tr key = {sample.ShelterName}
                 onClick={() => {
                     this.props.selectPlace(sample)
                     this.props.history.push('/place/');

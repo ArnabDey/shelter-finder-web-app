@@ -11,7 +11,7 @@ import reducers from './reducers';
 import Entry from './components/Entry';
 import MainScreen from './containers/MainScreen';
 import Profile from './components/Profile';
-import Register from './components/Register';
+import Register from './containers/Register';
 import Reserve from './containers/Reserve';
 import SignIn from './containers/SignIn';
 import LocationInfo from './containers/LocationInfo';
