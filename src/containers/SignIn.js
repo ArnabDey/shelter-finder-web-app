@@ -29,14 +29,13 @@ class SignIn extends Component {
           this.props.history.push('/mainscreen');
       } else {
         alert("Invalid username or password")
-        return(
-          <h1> Invalid Username or Password </h1>
-          )
+        return false;
       }
 
     } else {
       this.error();
       alert("Invalid username or password");
+      return false;
     }
   }
   error() {

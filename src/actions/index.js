@@ -5,7 +5,8 @@ import axios from 'axios';
 export const SELECT_PLACE = 'SELECT_PLACE';
 export const ON_START = 'ON_START';
 export const FILTERED = 'FILTERED';
-export const ON_SIGNIN = 'ON_SIGNIN';
+export const ON_SIGNIN = 'ON_SIGNIN'
+export const REGISTER = 'REGISTER';
 
 const config = {
     apiKey: "AIzaSyBOZISgkveD5SXntkJ3oCRn_e7jo-Wp9pM",
@@ -51,6 +52,30 @@ export function getUsers() {
             })
         })
     }
+};
+
+export function addUser(values) {
+    console.log("adding user to db", values);
+    let {username, password} = values;
+    let id = Math.round(1 + Math.random() * (100000000000000000000));
+    db.ref(`/users/${id}`).set({
+        username, password
+    })
+    return {
+        type: REGISTER,
+        payload: "adding"
+    }
+    // return function(disptach) {
+    //     return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+    //     .then((val) => {
+    //         let signin = val.data.users;
+    //         console.log(signin);
+    //         disptach({
+    //             type: REGISTER,
+    //             payload: adding
+    //         })
+    //     })
+    // }
 };
 
 export function getFiltered(vals) {

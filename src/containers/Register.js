@@ -1,34 +1,89 @@
 import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUsers, addUser } from '../actions';
 
-import '../css/Register.css';
+
+import { bindActionCreators } from 'redux';
+import '../css/SignIn.css';
 
 class Register extends Component {
-    onRegister = (event) => {
-        this.props.onRouteChange('mainScreen');
+  constructor(props) {
+    super(props);
+    this.createUser = this.createUser.bind(this);
+  }
+  componentWillMount() {
+    this.props.getUsers();
+  }
+  signIn(value) {
+    const users = this.props.users;
+    let actId;
+    for (let id in users) {
+      if (users[id]['username'] === value.username) {
+          actId = id;
+      }
     }
-    onCancel = (event) => {
-        this.props.onRouteChange('');
+    if (actId) {
+        alert("This username is already taken");
+    } else {
+        this.createUser(value);
     }
+  }
+  createUser(value) {
+    console.log("create user", value);
+    this.props.addUser(value);
+    this.props.history.push('/mainscreen');
+  }
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <div>
-        <form id="registerForm">
-            <div id="contentRegisterForm">
-                <h1 id="registerContent"> Register </h1>
-                <label id="registerContent"> Username </label>
-                <input id="registerContent" type="text"></input>
-                <label id="registerContent"> Password </label>
-                <input id="registerContent" type="text"></input>
-                <div>
-                    <Link to = "/mainscreen" className = "btn btn-primary" id = "entryButton"> Sign In </Link>
-                    <Link to = "/" className = "btn btn-primary" id = "entryButton"> Cancel </Link>
-                </div>
-            </div>
-        </form>
-      </div>
+    <div >
+      <form
+        id="signInForm"
+        onSubmit={handleSubmit(this.signIn.bind(this))}>
+        <h1> Register </h1>
+        <h5> Enter username and password to register </h5>
+        <div className="contentForm">
+          <label> Username </label>
+          <Field
+            label="Username"
+            name="username"
+            type="text"
+            component="input"
+            id="signInContent"
+            required
+          />
+          <label> Password </label>
+          <Field
+            label="Password"
+            name="password"
+            component="input"
+            type="password"
+            id="signInContent2"
+            required
+          />
+          <div>
+            <button
+              type= "submit"
+              className="btn btn-primary"
+              >Register</button>
+            <Link to = "/" className = "btn btn-primary" id = "entryButton"> Cancel </Link>
+          </div>
+        </div>
+      </form>
+    </div>
     );
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
+}
+
+export default  reduxForm({
+  form: 'signIn'
+}) (
+connect(mapStateToProps, { getUsers, addUser })(Register));
