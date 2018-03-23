@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectPlace, getFiltered } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -108,7 +109,12 @@ class MainScreen extends Component {
             }}>Clear</button>
           </div>
           <br />
-          <h4 id="title"> Select a row for more information and to reserve</h4>
+          <div className = "mapView">
+              <h4 id="title"> Select a row for more information and to reserve</h4>
+              <Link to = "/mapshelter"
+                className = "btn btn-primary"
+                id = "entryButton"> Map View </Link>
+          </div>
           <table id="mainTable">
               <thead>
                 <tr>

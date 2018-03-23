@@ -65,17 +65,6 @@ export function addUser(values) {
         type: REGISTER,
         payload: "adding"
     }
-    // return function(disptach) {
-    //     return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
-    //     .then((val) => {
-    //         let signin = val.data.users;
-    //         console.log(signin);
-    //         disptach({
-    //             type: REGISTER,
-    //             payload: adding
-    //         })
-    //     })
-    // }
 };
 
 export function getFiltered(vals) {

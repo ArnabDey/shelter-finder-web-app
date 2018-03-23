@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsers, addUser } from '../actions';
 
-
-import { bindActionCreators } from 'redux';
 import '../css/SignIn.css';
 
 class Register extends Component {

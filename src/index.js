@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import reducers from './reducers';
 import Entry from './components/Entry';
 import MainScreen from './containers/MainScreen';
-import Profile from './components/Profile';
+import MapShelters from './containers/MapShelters';
 import Register from './containers/Register';
 import Reserve from './containers/Reserve';
 import SignIn from './containers/SignIn';
@@ -23,8 +23,8 @@ ReactDOM.render(
     <BrowserRouter>
         <div>
             <Switch>
-                <Route path="/profile" component={Profile} />
                 <Route path="/mainscreen" component={MainScreen} />
+                <Route path="/mapshelter" component={MapShelters} />
                 <Route path="/register" component={Register}/>
                 <Route path="/reserve" component={Reserve}/>
                 <Route path="/signin" component={SignIn}/>
