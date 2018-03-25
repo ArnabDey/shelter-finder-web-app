@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Map from 'react-js-google-maps';
+import GoogleMapReact from 'google-map-react';
 
 
 import _ from 'lodash';
@@ -12,21 +12,18 @@ class MapShelters extends Component {
     constructor(props) {
         super(props);
     }
-    getMaps() {
-        console.log("working");
+    addMarkers(map, maps) {
         if (this.props && this.props.places) {
             console.log("checking", this.props.places);
             return _.map(this.props.places,(sample) => {
                 let lat = parseFloat(sample["Latitude "]);
                 let long = parseFloat(sample["Longitude "]);
                 let coordinates = { lat: lat, lng: long};
-                console.log(coordinates)
-                let marker = new window.google.maps.Marker({
+                let marker = new maps.Marker ({
                     position: coordinates,
-                    map: window.gmaps['shelterMap'].gmap
+                    map,
+                    title: 'Map'
                 });
-                console.log(sample)
-                console.log(coordinates)
             })
         }
     }
@@ -49,23 +46,22 @@ class MapShelters extends Component {
                 className = "btn btn-primary"
                 id = "entryButton">
                 Back to List </Link>
-            <div id="mapImage">
-            <Map
-            id="shelterMap"
-            apiKey="AIzaSyCo9EKyo6UAag1kLNl3n5dKhDWcCTScXCI"
-            mapOptions={mapOptions}
-            style={{ width: 600, height: 480 }}
-            onload={this.getMaps()}
-            />
+          <div className = "mapImage" style={{height: '600px', width: '600px'}}>
+            <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyCo9EKyo6UAag1kLNl3n5dKhDWcCTScXCI' }}
+                defaultCenter={mapOptions.center}
+                defaultZoom={mapOptions.zoom}
+                id = "shelterMap"
+                onGoogleApiLoaded={({map, maps}) => this.addMarkers(map, maps)}
+            ></GoogleMapReact>
+
             </div>
             <h1 id="title"> Shelters Displayed </h1>
             <ul id="data">
                 <h6> {this.displayLocations()} </h6>
             </ul>
             </div>
-            )
-    }
-}
+)}}
 function mapStateToProps(state) {
   return {
     places: state.places
