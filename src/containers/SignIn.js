@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUsers } from '../actions';
+import { getCurrUser, getUsers } from '../actions';
 
 import '../css/SignIn.css';
 
@@ -24,6 +24,7 @@ class SignIn extends Component {
     }
     if (actId) {
       if (users[actId]['password'] === value.password) {
+          this.props.getCurrUser(users[actId]);
           this.props.history.push('/mainscreen');
       } else {
         alert("Invalid username or password")
@@ -92,4 +93,4 @@ function mapStateToProps(state) {
 export default  reduxForm({
   form: 'signIn'
 }) (
-connect(mapStateToProps, { getUsers })(SignIn));
+connect(mapStateToProps, { getCurrUser, getUsers })(SignIn));

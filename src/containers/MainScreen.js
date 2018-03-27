@@ -20,11 +20,12 @@ class MainScreen extends Component {
   }
 
   componentWillMount() {
+      console.log(this.props.users)
       this.props.getFiltered('');
   }
 
   renderRows() {
-    if (this.props.places) {
+    if (this.props.users && this.props.places) {
     return _.map(this.props.places,(sample) => {
       return(
               <tr key = {sample.ShelterName}
@@ -92,51 +93,59 @@ class MainScreen extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Navigation/>
-        <div id="titleSearch">
-          <h1 id="title"> All Locations </h1>
-          <div className ="searching">
-            <input
-              id="search"
-              onChange={this.beginFiltering}
-              placeholder="Filter the shelters"/>
-            <button onClick={() => {
-                  let search = document.getElementById("search");
-                  search.value = '';
-                  this.props.getFiltered('');
-            }}>Clear</button>
+    if (!this.props.users) {
+        return(
+          <div> Cannot view without signing in </div>
+        );
+    }
+    if (this.props.users) {
+      return (
+        <div>
+          <Navigation/>
+          <div id="titleSearch">
+            <h1 id="title"> All Locations </h1>
+            <div className ="searching">
+              <input
+                id="search"
+                onChange={this.beginFiltering}
+                placeholder="Filter the shelters"/>
+              <button onClick={() => {
+                    let search = document.getElementById("search");
+                    search.value = '';
+                    this.props.getFiltered('');
+              }}>Clear</button>
+            </div>
+            <br />
+            <div className = "mapView">
+                <h4 id="title"> Select a row for more information and to reserve</h4>
+                <Link to = "/mapshelter"
+                  className = "btn btn-primary"
+                  id = "entryButton"> Map View </Link>
+            </div>
+            <table id="mainTable">
+                <thead>
+                  <tr>
+                      <th>Shelter Name</th>
+                      <th>Capacity</th>
+                      <th>Restrictions</th>
+                      <th>Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.renderRows()}
+                </tbody>
+            </table>
           </div>
-          <br />
-          <div className = "mapView">
-              <h4 id="title"> Select a row for more information and to reserve</h4>
-              <Link to = "/mapshelter"
-                className = "btn btn-primary"
-                id = "entryButton"> Map View </Link>
-          </div>
-          <table id="mainTable">
-              <thead>
-                <tr>
-                    <th>Shelter Name</th>
-                    <th>Capacity</th>
-                    <th>Restrictions</th>
-                    <th>Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.renderRows()}
-              </tbody>
-          </table>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    places: state.places
+    places: state.places,
+    users: state.users
   }
 }
 

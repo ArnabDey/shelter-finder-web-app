@@ -7,7 +7,7 @@ export const ON_START = 'ON_START';
 export const FILTERED = 'FILTERED';
 export const ON_SIGNIN = 'ON_SIGNIN'
 export const REGISTER = 'REGISTER';
-
+export const CURR_USER = 'CURR_USER';
 const config = {
     apiKey: "AIzaSyBOZISgkveD5SXntkJ3oCRn_e7jo-Wp9pM",
     authDomain: "shelterfinder-6d316.firebaseapp.com",
@@ -45,7 +45,6 @@ export function getUsers() {
         return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
         .then((val) => {
             let signin = val.data.users;
-            console.log(signin);
             disptach({
                 type: ON_SIGNIN,
                 payload: signin
@@ -57,9 +56,11 @@ export function getUsers() {
 export function addUser(values) {
     console.log("adding user to db", values);
     let {username, password} = values;
+    let admin = false;
+    let checkedin = false;
     let id = Math.round(1 + Math.random() * (100000000000000000000));
     db.ref(`/users/${id}`).set({
-        username, password
+        username, password, admin, checkedin
     })
     return {
         type: REGISTER,
@@ -74,5 +75,14 @@ export function getFiltered(vals) {
     return {
         type: FILTERED,
         payload: vals
+    }
+};
+
+export function getCurrUser(user) {
+    console.log('action', user)
+    const arr = [user]
+    return {
+        type: CURR_USER,
+        payload: arr
     }
 };

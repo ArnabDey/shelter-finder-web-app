@@ -13,6 +13,7 @@ class LocationInfo extends Component {
                 <div> Waiting for location to get selected </div>
                 );
         }
+        console.log(this.props.place)
         return(
             <div>
                 <Navigation />

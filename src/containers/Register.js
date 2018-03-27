@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUsers, addUser } from '../actions';
+import { getCurrUser, getUsers, addUser } from '../actions';
 
 import '../css/SignIn.css';
 
@@ -29,9 +29,10 @@ class Register extends Component {
     }
   }
   createUser(value) {
-    console.log("create user", value);
     this.props.addUser(value);
-    this.props.history.push('/mainscreen');
+    const users = this.props.users;
+    let findId;
+    this.props.history.push('/signin');
   }
   render() {
     const { handleSubmit } = this.props;
@@ -84,4 +85,4 @@ function mapStateToProps(state) {
 export default  reduxForm({
   form: 'signIn'
 }) (
-connect(mapStateToProps, { getUsers, addUser })(Register));
+connect(mapStateToProps, { getCurrUser, getUsers, addUser })(Register));
