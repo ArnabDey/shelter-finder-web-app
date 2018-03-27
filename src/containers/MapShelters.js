@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact, {Marker} from 'google-map-react';
 
 
 import _ from 'lodash';
@@ -14,18 +14,30 @@ class MapShelters extends Component {
     }
     addMarkers(map, maps) {
         if (this.props && this.props.places) {
-            console.log("checking", this.props.places);
             return _.map(this.props.places,(sample) => {
                 let lat = parseFloat(sample["Latitude "]);
                 let long = parseFloat(sample["Longitude "]);
                 let coordinates = { lat: lat, lng: long};
-                let marker = new maps.Marker ({
+
+                let marker = new maps.Marker({
                     position: coordinates,
                     map,
                     title: 'Map'
                 });
+                let infoWindow = new maps.InfoWindow({
+                    content: "<strong>" + sample.ShelterName + "</strong>" + "<br>"
+                    + sample.Address + "<br/> Capacity: " + sample.Capacity
+                    // sample.ShelterName + "\n" + sample.Address
+                })
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker)
+                })
+
             })
         }
+    }
+    window() {
+        console.log("here")
     }
     displayLocations() {
         if (this.props) {
@@ -37,7 +49,7 @@ class MapShelters extends Component {
     }
     render() {
         const mapOptions = {
-            zoom: 10,
+            zoom: 12,
             center: { lat: 33.753746, lng: -84.386330}
         }
         return(
@@ -53,6 +65,7 @@ class MapShelters extends Component {
                 defaultZoom={mapOptions.zoom}
                 id = "shelterMap"
                 onGoogleApiLoaded={({map, maps}) => this.addMarkers(map, maps)}
+                clickableIcons={true}
             ></GoogleMapReact>
 
             </div>
