@@ -48,6 +48,11 @@ class MapShelters extends Component {
         }
     }
     render() {
+        if (!this.props.users) {
+            return(
+            <div> Cannot view without signing in </div>
+            );
+        }
         const mapOptions = {
             zoom: 12,
             center: { lat: 33.753746, lng: -84.386330}
@@ -77,7 +82,8 @@ class MapShelters extends Component {
 )}}
 function mapStateToProps(state) {
   return {
-    places: state.places
+    places: state.places,
+    users: state.users
   }
 }
 

@@ -82,7 +82,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default  reduxForm({
+export default reduxForm({
   form: 'signIn'
 }) (
 connect(mapStateToProps, { getCurrUser, getUsers, addUser })(Register));

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+
 import { Link } from 'react-router-dom';
 
 import '../css/LocationInfo.css';
@@ -7,6 +9,17 @@ import '../css/LocationInfo.css';
 import Navigation from '../components/Navigation';
 
 class Reserve extends Component {
+    reserve(value) {
+        console.log(value.numBeds)
+        if (isNaN(value.numBeds)) {
+            console.log("Not a valid number");
+        } else if (parseInt(value.numBeds) > this.props.place[0].Capacity) {
+            console.log(`This reservation of ${value.numBeds} cannot be made because it exceeds the limit of ${this.props.place[0].Capacity} people`);
+        } else {
+            console.log('Reserving',parseInt(value.numBeds));
+            console.log('User reserving', this.props.users);
+        }
+    }
     render() {
         if (!this.props.place) {
             return(
@@ -15,6 +28,7 @@ class Reserve extends Component {
                 </div>
                 );
         }
+        const { handleSubmit } = this.props;
         return(
             <div>
                 <Navigation />
@@ -31,17 +45,32 @@ class Reserve extends Component {
                     <br/>
                     Special Notes: {this.props.place[0]['Specia Notes']}
                     <br/>
-                    <div>
-                    <br/><br/>
-                    Number of Beds: <input></input>
-                    </div>
-                    <div>
-                    </div>
-                    <br/>
-                    <div>
-                        <Link to = "/mainscreen" className = "btn btn-primary"> Make Reservations </Link>
-                        <Link to = "/mainscreen" className = "btn btn-danger" id = "entryButton"> Cancel </Link>
-                    </div>
+                    <form
+                        id="reserve"
+                        onSubmit={handleSubmit(this.reserve.bind(this))}>
+                        <div>
+                        <br/><br/>
+                        <label> Number of Beds: </label>
+                        <Field
+                            label="numBeds"
+                            name="numBeds"
+                            component="input"
+                            type="text"
+                            id="numBeds"
+                            required
+                        />
+                        </div>
+                        <div>
+                        </div>
+                        <br/>
+                        <div>
+                            <button
+                            type= "submit"
+                            className="btn btn-primary"
+                            >Make Reservation</button>
+                            <Link to = "/mainscreen" className = "btn btn-danger" id = "entryButton"> Cancel </Link>
+                        </div>
+                    </form>
                 </div>
             </div>
     )
@@ -50,8 +79,11 @@ class Reserve extends Component {
 
 function mapStateToProps(state){
     return {
-        place: state.places
+        place: state.places,
+        users: state.users
     }
 }
 
-export default connect(mapStateToProps)(Reserve)
+export default reduxForm({
+  form: 'reserve'
+}) (connect(mapStateToProps)(Reserve))
