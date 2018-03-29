@@ -1,4 +1,4 @@
-import {SELECT_PLACE, ON_START, FILTERED, ON_SIGNIN} from '../actions/index';
+import {SELECT_PLACE, ON_START, FILTERED, ON_SIGNIN, RESERVE} from '../actions/index';
 
 export default function(state = null, action) {
     switch(action.type){
@@ -9,6 +9,8 @@ export default function(state = null, action) {
         case ON_START:
             return action.payload;
         case ON_SIGNIN:
+            return action.payload;
+        case RESERVE:
             return action.payload;
     }
     return state;

@@ -24,7 +24,9 @@ class SignIn extends Component {
     }
     if (actId) {
       if (users[actId]['password'] === value.password) {
-          this.props.getCurrUser(users[actId]);
+          let currUser = {};
+          currUser[actId] = users[actId];
+          this.props.getCurrUser(currUser);
           this.props.history.push('/mainscreen');
       } else {
         alert("Invalid username or password")

@@ -1,4 +1,4 @@
-import {ON_SIGNIN, REGISTER, CURR_USER} from '../actions/index';
+import {ON_SIGNIN, REGISTER, CURR_USER, CHECK_IN} from '../actions/index';
 
 export default function(state = null, action) {
     switch(action.type){
@@ -7,6 +7,8 @@ export default function(state = null, action) {
         case REGISTER:
             return action.payload;
         case CURR_USER:
+            return action.payload;
+        case CHECK_IN:
             return action.payload;
     }
     return state;

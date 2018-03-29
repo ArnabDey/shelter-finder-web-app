@@ -8,6 +8,10 @@ export const FILTERED = 'FILTERED';
 export const ON_SIGNIN = 'ON_SIGNIN'
 export const REGISTER = 'REGISTER';
 export const CURR_USER = 'CURR_USER';
+export const RESERVE = 'RESERVE';
+export const CHECK_IN = 'CHECK_IN';
+
+
 const config = {
     apiKey: "AIzaSyBOZISgkveD5SXntkJ3oCRn_e7jo-Wp9pM",
     authDomain: "shelterfinder-6d316.firebaseapp.com",
@@ -79,10 +83,72 @@ export function getFiltered(vals) {
 };
 
 export function getCurrUser(user) {
+    let id = Object.keys(user);
+    console.log(user[id]);
     console.log('action', user)
     const arr = [user]
     return {
         type: CURR_USER,
         payload: arr
     }
+
+    // return function(disptach) {
+    //     return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+    //     .then((val) => {
+    //         let currUser = {};
+    //         currUser[id] = val.data.users[id];
+    //         console.log("val",currUser);
+    //         disptach({
+    //             type: ON_SIGNIN,
+    //             payload: currUser
+    //         })
+    //     })
+    // }
 };
+
+export function reserveDB(location, num) {
+    console.log('Reserving at', location);
+    console.log(location);
+    return function(disptach) {
+        return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+        .then((val) => {
+            let start = val.data.Data;
+            // console.log("shelters",start);
+            // console.log('keys', Object.keys(start));
+            let actId;
+            for (let key in Object.keys(start)) {
+                // console.log(location.Address);
+                let id = Object.keys(start)[key];
+                // console.log(start[id]);
+                if (location.Address === start[id].Address) {
+                    actId = id;
+                    console.log(actId);
+                }
+            }
+            return db.ref(`/Data/${actId}`).update({
+                'Capacity': (start[actId].Capacity - num)
+            }).then(() => {
+                return {
+                    type: RESERVE,
+                    payload: location
+                }
+            })
+        })
+    }
+}
+
+export function checkIn(user) {
+    // let id = Object.keys(user[0])[0];
+    let id = Object.keys(user[0]);
+    console.log(`Checking in`, Object.keys(user[0])[0]);
+    return function(disptach) {
+        return db.ref(`/users/${id}`).update({
+            'checkedin': true
+        }).then(() => {
+            return {
+                type: CHECK_IN,
+                payload: user
+            }
+        })
+    }
+}

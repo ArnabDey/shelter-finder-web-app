@@ -21,28 +21,30 @@ class MainScreen extends Component {
 
   componentWillMount() {
       console.log(this.props.users)
+      console.log(this.props.places)
       this.props.getFiltered('');
   }
 
   renderRows() {
     if (this.props.users && this.props.places) {
-    return _.map(this.props.places,(sample) => {
-      return(
-              <tr key = {sample.ShelterName}
-                onClick={() => {
-                    this.props.selectPlace(sample)
-                    this.props.history.push('/place/');
-                  }
-                }>
-                  <td>{sample.ShelterName}</td>
-                  <td>{sample.Capacity}</td>
-                  <td>{sample.Restrictions}</td>
-                  <td>{sample.Address}</td>
-              </tr>
-        )
-      })
-    }
-  }
+      return _.map(this.props.places,(sample) => {
+        return(
+                <tr key = {sample.ShelterName}
+                  onClick={() => {
+                    // console.log(Object.keys(this.props.places));
+                      this.props.selectPlace(sample)
+                      this.props.history.push('/place/');
+                    }
+                  }>
+                    <td>{sample.ShelterName}</td>
+                    <td>{sample.Capacity}</td>
+                    <td>{sample.Restrictions}</td>
+                    <td>{sample.Address}</td>
+                </tr>
+          )
+        })
+      }
+}
 
   beginFiltering(event) {
     if (event.target.value === ''
