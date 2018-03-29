@@ -32,7 +32,11 @@ class Reserve extends Component {
     render() {
         let id = Object.keys(this.props.users[0]);
         console.log("reserving",  this.props.users[0][id].checkedin);
-        if (!this.props.place) {
+        if (!this.props.users) {
+            return(
+                <div> Cannot view without signing in </div>
+            );
+        }else if (!this.props.place) {
             return(
                 <div>
                     <div>Waiting for location to get selected </div>

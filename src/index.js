@@ -12,6 +12,7 @@ import Entry from './components/Entry';
 import MainScreen from './containers/MainScreen';
 import MapShelters from './containers/MapShelters';
 import Register from './containers/Register';
+import Reservations from './containers/Reservations';
 import Reserve from './containers/Reserve';
 import SignIn from './containers/SignIn';
 import LocationInfo from './containers/LocationInfo';
@@ -25,6 +26,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/mainscreen" component={MainScreen} />
                 <Route path="/mapshelter" component={MapShelters} />
+                <Route path="/reservations" component={Reservations}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/reserve" component={Reserve}/>
                 <Route path="/signin" component={SignIn}/>

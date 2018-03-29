@@ -7,6 +7,7 @@ class Navigation extends Component {
         return(
             <ul>
                 <Link to = "/mainscreen" className = "btn"> All Shelters </Link>
+                <Link to = "/reservations" className = "btn"> Reservations </Link>
                 <Link to = "/" className = "btn"> Sign Out </Link>
             </ul>
 
