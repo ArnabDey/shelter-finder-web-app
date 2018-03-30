@@ -8,11 +8,7 @@ import Navigation from '../components/Navigation';
 
 class LocationInfo extends Component {
     render() {
-        if (!this.props.users) {
-            return(
-            <div> Cannot view without signing in </div>
-            );
-        } else if (!this.props.place) {
+        if (!this.props.place) {
             return(
                 <div> Waiting for location to get selected </div>
                 );

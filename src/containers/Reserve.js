@@ -20,7 +20,7 @@ class Reserve extends Component {
             alert("not possible")
             console.log(`This reservation of ${value.numBeds} cannot be made because it exceeds the limit of ${this.props.place[0].Capacity} people`);
         } else {
-            this.props.reserveDB(this.props.place[0], parseInt(value.numBeds));
+            this.props.reserveDB(this.props.place[0], parseInt(value.numBeds), this.props.users);
             this.props.checkIn(this.props.users);
             let id = Object.keys(this.props.users[0]);
             this.props.users[0][id].checkedin = true;

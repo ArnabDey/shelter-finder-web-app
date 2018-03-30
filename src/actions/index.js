@@ -10,6 +10,7 @@ export const REGISTER = 'REGISTER';
 export const CURR_USER = 'CURR_USER';
 export const RESERVE = 'RESERVE';
 export const CHECK_IN = 'CHECK_IN';
+export const CHECK_OUT = 'CHECK_OUT';
 
 
 const config = {
@@ -92,41 +93,30 @@ export function getCurrUser(user) {
         payload: arr
     }
 
-    // return function(disptach) {
-    //     return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
-    //     .then((val) => {
-    //         let currUser = {};
-    //         currUser[id] = val.data.users[id];
-    //         console.log("val",currUser);
-    //         disptach({
-    //             type: ON_SIGNIN,
-    //             payload: currUser
-    //         })
-    //     })
-    // }
 };
 
-export function reserveDB(location, num) {
+export function reserveDB(location, num, users) {
     console.log('Reserving at', location);
     console.log(location);
     return function(disptach) {
         return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
         .then((val) => {
             let start = val.data.Data;
-            // console.log("shelters",start);
-            // console.log('keys', Object.keys(start));
             let actId;
             for (let key in Object.keys(start)) {
-                // console.log(location.Address);
                 let id = Object.keys(start)[key];
-                // console.log(start[id]);
                 if (location.Address === start[id].Address) {
                     actId = id;
                     console.log(actId);
                 }
             }
+            let id = Object.keys(users[0]);
+            let name = users[0][id].username;
+            db.ref(`/Reservations/${name}`).update({
+                'ShelterName': start[actId].ShelterName,'Capacity': num.toString()
+            })
             return db.ref(`/Data/${actId}`).update({
-                'Capacity': (start[actId].Capacity - num)
+                'Capacity': (start[actId].Capacity - num).toString()
             }).then(() => {
                 return {
                     type: RESERVE,
@@ -138,7 +128,6 @@ export function reserveDB(location, num) {
 }
 
 export function checkIn(user) {
-    // let id = Object.keys(user[0])[0];
     let id = Object.keys(user[0]);
     console.log(`Checking in`, Object.keys(user[0])[0]);
     return function(disptach) {
@@ -152,3 +141,59 @@ export function checkIn(user) {
         })
     }
 }
+
+export function checkOut(user) {
+    let id = Object.keys(user[0]);
+    let actId = Object.keys(user[0])[0];
+    console.log(`Checking out`,user[0][actId].username);
+    return function(disptach) {
+        return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+        .then((val) => {
+            let shelterData = val.data.Data;
+            let reservations = val.data.Reservations;
+            let id = Object.keys(user[0]);
+            let name = reservations[user[0][actId].username].ShelterName;
+            let num = reservations[user[0][actId].username].Capacity;
+            let actIdShelter;
+            for (let key in Object.keys(shelterData)) {
+                let shelterId = Object.keys(shelterData)[key];
+                if (name === shelterData[shelterId].ShelterName) {
+                    actIdShelter = shelterId;
+                }
+            }
+            let updatedCapcity = parseInt(num) + parseInt(shelterData[actIdShelter].Capacity);
+            console.log("updatedCapcity", updatedCapcity);
+            db.ref(`/Data/${actIdShelter}`).update({
+                'Capacity': updatedCapcity.toString()
+            })
+            return db.ref(`/users/${id}`).update({
+                'checkedin': false
+            }).then(() => {
+                return {
+                    type: CHECK_OUT,
+                    payload: user
+                }
+            })
+        })
+    }
+
+}
+
+
+
+ // return function(disptach) {
+ //        return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+ //        .then((val) => {
+ //            let shelterData = val.data.Data;
+ //            let reservations = val.data.Reservations;
+ //            console.log("acessing db", reservations[user[0][actId].username]);
+ //            return db.ref(`/users/${id}`).update({
+ //                'checkedin': false
+ //            }).then(() => {
+ //                return {
+ //                    type: CHECK_OUT,
+ //                    payload: user
+ //                }
+ //            })
+ //        }
+ //    }
