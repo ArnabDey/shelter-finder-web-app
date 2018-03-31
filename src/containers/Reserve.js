@@ -29,7 +29,6 @@ class Reserve extends Component {
     }
     render() {
         let id = Object.keys(this.props.users[0]);
-        console.log("reserving",  this.props.users[0][id].checkedin);
         if (!this.props.users) {
             return(
                <DocumentTitle title="Reserve">
@@ -55,8 +54,6 @@ class Reserve extends Component {
                 );
         }
         const { handleSubmit } = this.props;
-        console.log("output", this.props.place[0]);
-        console.log("curr user", this.props.users)
         return(
             <div>
                 <Navigation />

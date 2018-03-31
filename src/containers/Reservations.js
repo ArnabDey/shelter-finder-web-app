@@ -11,7 +11,7 @@ import '../css/Reservations.css';
 class Reservations extends Component {
     render() {
         // console.log("RESERVATIONS", this.props.reservation);
-        if (!this.props.users) {
+        if (!this.props.users || Object.keys(this.props.users).length !== 1) {
             return(
             <DocumentTitle title="Reservations">
             <div> Cannot view without signing in </div>
@@ -19,7 +19,8 @@ class Reservations extends Component {
             );
         }
         let id = Object.keys(this.props.users[0]);
-        const cancelOption = this.props.users[0][id].checkedin  ?(
+        const cancelOption = this.props.users[0][id].checkedin
+            && this.props.reservation !== null ?(
                 <div id="information">
                     <h3> Current Reservation </h3>
                     <h6> Name of Shelter : {this.props.reservation.ShelterName} </h6>

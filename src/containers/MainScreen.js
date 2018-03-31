@@ -20,7 +20,7 @@ class MainScreen extends Component {
 
   componentWillMount() {
       this.props.getFiltered('');
-      if (this.props.users) {
+      if (this.props.users && Object.keys(this.props.users).length === 1) {
             this.props.getReservation(this.props.users);
         }
   }
@@ -95,7 +95,8 @@ class MainScreen extends Component {
   }
 
   render() {
-    if (!this.props.users) {
+    if (!this.props.users ||
+      Object.keys(this.props.users).length !== 1) {
         return(
           <DocumentTitle title ="Shelters">
             <div> Cannot view without signing in </div>

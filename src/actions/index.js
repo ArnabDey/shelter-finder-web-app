@@ -144,7 +144,8 @@ export function getReservation(user) {
                 // let id = Object.keys(user[0]);
                 let actId = Object.keys(user[0])[0];
                 let valReservation;
-                if (!reservations[user[0][actId].username]) {
+                if (reservations === undefined ||
+                    !(user[0][actId].username in reservations)) {
                     valReservation = null;
                 } else {
                     valReservation = reservations[user[0][actId].username];

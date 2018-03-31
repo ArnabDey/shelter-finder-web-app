@@ -42,7 +42,9 @@ class MapShelters extends Component {
         }
     }
     render() {
-        if (!this.props.users) {
+        console.log(Object.keys(this.props.users).length !== 1)
+        if (!this.props.users ||
+            Object.keys(this.props.users).length !== 1) {
             return(
             <DocumentTitle title = "Map">
             <div> Cannot view without signing in </div>

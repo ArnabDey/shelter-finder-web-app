@@ -9,7 +9,8 @@ import Navigation from './Navigation';
 
 class LocationInfo extends Component {
     render() {
-        if (!this.props.place) {
+        if (!this.props.place || (!this.props.users
+            || Object.keys(this.props.users).length !== 1)) {
             return(
                 <DocumentTitle title="Location">
                 <div> Waiting for location to get selected </div>
@@ -52,7 +53,8 @@ class LocationInfo extends Component {
 
 function mapStateToProps(state){
     return {
-        place: state.places
+        place: state.places,
+        users: state.users
     }
 }
 
