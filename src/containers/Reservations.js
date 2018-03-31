@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navigation from '../components/Navigation';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { checkOut } from '../actions/index';
+import { checkOut, getReservation } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 import '../css/Reservations.css';
@@ -13,21 +13,26 @@ class Reservations extends Component {
         super(props);
     }
     render() {
+        console.log("RESERVATIONS", this.props.reservation);
         if (!this.props.users) {
             return(
             <div> Cannot view without signing in </div>
             );
         }
-        console.log(this.props.users);
         let id = Object.keys(this.props.users[0]);
         const cancelOption = this.props.users[0][id].checkedin  ?(
-                <Link to = "/mainscreen"
-                className = "btn btn-danger"
-                onClick={() => {
-                            console.log('deleting Reservations', this.props.users[0][id]);
-                            this.props.checkOut(this.props.users);
-                            this.props.users[0][id].checkedin = false;
-                }}> Cancel Reservations </Link> ):
+                <div id="information">
+                    <h3> Current Reservation </h3>
+                    <h6> Name of Shelter : {this.props.reservation.ShelterName} </h6>
+                    <h6> Number of People: {this.props.reservation.Capacity} </h6>
+                    <Link to = "/mainscreen"
+                    className = "btn btn-danger"
+                    onClick={() => {
+                                this.props.checkOut(this.props.users);
+                                this.props.users[0][id].checkedin = false;
+                    }}> Cancel Reservations </Link>
+                </div>
+                ):
             (
                 <Link to = "/mainscreen"
                 className = "btn btn-primary"> Make Reservations
@@ -37,9 +42,11 @@ class Reservations extends Component {
             <div>
                 <Navigation />
                 <div id="information">
-                    <h1> Reservations </h1>
+                    <h1> Profile Information </h1>
                     <h4> Username: {this.props.users[0][id].username} </h4>
                     <h4> Checked In: {this.props.users[0][id].checkedin.toString()} </h4>
+                    <br/>
+                    <br/>
                     {cancelOption}
                 </div>
             </div>
@@ -50,8 +57,9 @@ class Reservations extends Component {
 function mapStateToProps(state) {
   return {
     places: state.places,
-    users: state.users
+    users: state.users,
+    reservation: state.reservation
   }
 }
 
-export default connect(mapStateToProps, { checkOut })(Reservations);
+export default connect(mapStateToProps, { checkOut, getReservation })(Reservations);

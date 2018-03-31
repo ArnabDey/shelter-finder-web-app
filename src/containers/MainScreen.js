@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectPlace, getFiltered } from '../actions/index';
+import { selectPlace, getFiltered, getReservation } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
@@ -20,18 +20,19 @@ class MainScreen extends Component {
   }
 
   componentWillMount() {
-      console.log(this.props.users)
-      console.log(this.props.places)
       this.props.getFiltered('');
+      if (this.props.users) {
+            this.props.getReservation(this.props.users);
+        }
   }
 
   renderRows() {
+    console.log("here", this.props.reservation);
     if (this.props.users && this.props.places) {
       return _.map(this.props.places,(sample) => {
         return(
                 <tr key = {sample.ShelterName}
                   onClick={() => {
-                    // console.log(Object.keys(this.props.places));
                       this.props.selectPlace(sample)
                       this.props.history.push('/place/');
                     }
@@ -147,8 +148,9 @@ class MainScreen extends Component {
 function mapStateToProps(state) {
   return {
     places: state.places,
-    users: state.users
+    users: state.users,
+    reservation: state.reservation
   }
 }
 
-export default connect(mapStateToProps, {selectPlace, getFiltered})(MainScreen);
+export default connect(mapStateToProps, {selectPlace, getFiltered, getReservation})(MainScreen);

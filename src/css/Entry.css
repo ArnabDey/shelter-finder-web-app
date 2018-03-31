@@ -5,6 +5,7 @@
     justify-content: center;
     flex-direction: column;
     padding: 10px;
+    background-size: cover;
 }
  button {
     padding: 12px 30px;

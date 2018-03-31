@@ -11,6 +11,7 @@ export const CURR_USER = 'CURR_USER';
 export const RESERVE = 'RESERVE';
 export const CHECK_IN = 'CHECK_IN';
 export const CHECK_OUT = 'CHECK_OUT';
+export const GET_RESERVE = 'GET_RESERVE';
 
 
 const config = {
@@ -142,6 +143,40 @@ export function checkIn(user) {
     }
 }
 
+
+// export function getReservation() {
+//     return function(disptach) {
+//         return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+//         .then((val) => {
+//             let res = val.data.Reservations
+//             ;
+//             disptach({
+//                 type: GET_RESERVE,
+//                 payload: signin
+//             })
+//         })
+//     }
+// };
+
+
+
+export function getReservation(user) {
+    return function(disptach) {
+        return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
+        .then((val) => {
+                let reservations = val.data.Reservations;
+                let id = Object.keys(user[0]);
+                let actId = Object.keys(user[0])[0];
+                console.log('reservations', reservations[user[0][actId].username]);
+                console.log('reservations a', GET_RESERVE);
+                disptach ({
+                    type: GET_RESERVE,
+                    payload: reservations[user[0][actId].username]
+                })
+        })
+    }
+}
+
 export function checkOut(user) {
     let id = Object.keys(user[0]);
     let actId = Object.keys(user[0])[0];
@@ -178,22 +213,3 @@ export function checkOut(user) {
     }
 
 }
-
-
-
- // return function(disptach) {
- //        return axios.get('https://shelterfinder-6d316.firebaseio.com/.json')
- //        .then((val) => {
- //            let shelterData = val.data.Data;
- //            let reservations = val.data.Reservations;
- //            console.log("acessing db", reservations[user[0][actId].username]);
- //            return db.ref(`/users/${id}`).update({
- //                'checkedin': false
- //            }).then(() => {
- //                return {
- //                    type: CHECK_OUT,
- //                    payload: user
- //                }
- //            })
- //        }
- //    }
