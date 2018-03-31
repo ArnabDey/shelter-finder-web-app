@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrUser, getUsers } from '../actions';
+import DocumentTitle from 'react-document-title';
+
 
 import '../css/SignIn.css';
 
@@ -48,6 +50,7 @@ class SignIn extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
+    <DocumentTitle title = "Sign In">
     <div >
       <form
         id="signInForm"
@@ -82,6 +85,7 @@ class SignIn extends Component {
         </div>
       </form>
     </div>
+    </DocumentTitle>
     );
   }
 }

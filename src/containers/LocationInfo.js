@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/LocationInfo.css';
+import DocumentTitle from 'react-document-title';
 
 import Navigation from './Navigation';
 
@@ -10,10 +11,13 @@ class LocationInfo extends Component {
     render() {
         if (!this.props.place) {
             return(
+                <DocumentTitle title="Location">
                 <div> Waiting for location to get selected </div>
+                </DocumentTitle>
                 );
         }
         return(
+            <DocumentTitle title="Location">
             <div>
                 <Navigation />
                 <div id = "information">
@@ -41,6 +45,7 @@ class LocationInfo extends Component {
                     </div>
                 </div>
             </div>
+            </DocumentTitle>
     )
     }
 }

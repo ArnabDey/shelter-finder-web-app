@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { reserveDB, checkIn } from '../actions';
 
 import { Link } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 
 import '../css/LocationInfo.css';
 
@@ -31,21 +32,27 @@ class Reserve extends Component {
         console.log("reserving",  this.props.users[0][id].checkedin);
         if (!this.props.users) {
             return(
+               <DocumentTitle title="Reserve">
                 <div> Cannot view without signing in </div>
+                </DocumentTitle>
             );
         }else if (!this.props.place) {
             return(
+                <DocumentTitle title="Reserve">
                 <div>
                     <div>Waiting for location to get selected </div>
                 </div>
+                </DocumentTitle>
                 );
         } else if (this.props.users[0][id].checkedin) {
             return(
+                <DocumentTitle title="Reserve">
                 <div>
                     <div>Cannot have multiple reservations </div>
                     <Link to = "/mainscreen" className = "btn btn-danger" id = "entryButton"> Go Back </Link>
                 </div>
-                )
+                </DocumentTitle>
+                );
         }
         const { handleSubmit } = this.props;
         console.log("output", this.props.place[0]);

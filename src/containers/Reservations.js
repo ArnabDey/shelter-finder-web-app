@@ -3,6 +3,7 @@ import Navigation from './Navigation';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { checkOut, getReservation } from '../actions/index';
+import DocumentTitle from 'react-document-title';
 
 import '../css/Reservations.css';
 
@@ -12,7 +13,9 @@ class Reservations extends Component {
         // console.log("RESERVATIONS", this.props.reservation);
         if (!this.props.users) {
             return(
+            <DocumentTitle title="Reservations">
             <div> Cannot view without signing in </div>
+            </DocumentTitle>
             );
         }
         let id = Object.keys(this.props.users[0]);
@@ -41,6 +44,7 @@ class Reservations extends Component {
             <h3> You are not currently checked in </h3>
             );
         return(
+            <DocumentTitle title = "Reservations">
             <div>
                 <Navigation />
                 <div className="row">
@@ -54,7 +58,9 @@ class Reservations extends Component {
                         {cancelOption}
                     </div>
                 </div>
+
             </div>
+            </DocumentTitle>
         )
     }
 }

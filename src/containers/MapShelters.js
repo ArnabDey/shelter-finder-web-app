@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
+import DocumentTitle from 'react-document-title';
 
 
 import _ from 'lodash';
@@ -43,7 +44,9 @@ class MapShelters extends Component {
     render() {
         if (!this.props.users) {
             return(
+            <DocumentTitle title = "Map">
             <div> Cannot view without signing in </div>
+            </DocumentTitle>
             );
         }
         const mapOptions = {
@@ -51,6 +54,7 @@ class MapShelters extends Component {
             center: { lat: 33.753746, lng: -84.386330}
         }
         return(
+            <DocumentTitle title="Map">
             <div>
             <Link to = "/mainscreen"
                 className = "btn btn-primary"
@@ -72,6 +76,8 @@ class MapShelters extends Component {
                 <h6> {this.displayLocations()} </h6>
             </ul>
             </div>
+            </DocumentTitle>
+
 )}}
 function mapStateToProps(state) {
   return {

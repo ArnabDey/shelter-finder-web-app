@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectPlace, getFiltered, getReservation } from '../actions/index';
+import DocumentTitle from 'react-document-title';
 import _ from 'lodash';
 
 
@@ -96,11 +97,14 @@ class MainScreen extends Component {
   render() {
     if (!this.props.users) {
         return(
-          <div> Cannot view without signing in </div>
+          <DocumentTitle title ="Shelters">
+            <div> Cannot view without signing in </div>
+          </DocumentTitle>
         );
     }
     if (this.props.users) {
       return (
+        <DocumentTitle title ="Shelters">
         <div>
           <Navigation/>
           <div id="titleSearch">
@@ -138,6 +142,7 @@ class MainScreen extends Component {
             </table>
           </div>
         </div>
+        </DocumentTitle>
       );
     }
   }
