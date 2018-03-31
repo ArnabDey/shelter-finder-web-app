@@ -124,6 +124,7 @@ export function reserveDB(location, num, users) {
 
 export function checkIn(user) {
     let id = Object.keys(user[0]);
+    console.log("hceking in");
     return function(disptach) {
         return db.ref(`/users/${id}`).update({
             'checkedin': true

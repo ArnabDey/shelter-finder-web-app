@@ -42,7 +42,6 @@ class MapShelters extends Component {
         }
     }
     render() {
-        console.log(Object.keys(this.props.users).length !== 1)
         if (!this.props.users ||
             Object.keys(this.props.users).length !== 1) {
             return(

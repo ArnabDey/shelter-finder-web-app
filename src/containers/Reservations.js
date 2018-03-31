@@ -10,7 +10,6 @@ import '../css/Reservations.css';
 
 class Reservations extends Component {
     render() {
-        // console.log("RESERVATIONS", this.props.reservation);
         if (!this.props.users || Object.keys(this.props.users).length !== 1) {
             return(
             <DocumentTitle title="Reservations">
@@ -19,8 +18,7 @@ class Reservations extends Component {
             );
         }
         let id = Object.keys(this.props.users[0]);
-        const cancelOption = this.props.users[0][id].checkedin
-            && this.props.reservation !== null ?(
+        const cancelOption = this.props.reservation !== null ?(
                 <div id="information">
                     <h3> Current Reservation </h3>
                     <h6> Name of Shelter : {this.props.reservation.ShelterName} </h6>
@@ -39,7 +37,7 @@ class Reservations extends Component {
                 className = "btn btn-primary"> Make Reservations
                 </Link>
             );
-        const currentlyCheckedIn = this.props.users[0][id].checkedin ? (
+        const currentlyCheckedIn = this.props.reservation ? (
             <h3> You are currently checked in </h3>
             ) : (
             <h3> You are not currently checked in </h3>

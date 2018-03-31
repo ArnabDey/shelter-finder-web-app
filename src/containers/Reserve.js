@@ -28,7 +28,6 @@ class Reserve extends Component {
         }
     }
     render() {
-        let id = Object.keys(this.props.users[0]);
         if (!this.props.users) {
             return(
                <DocumentTitle title="Reserve">
@@ -43,7 +42,7 @@ class Reserve extends Component {
                 </div>
                 </DocumentTitle>
                 );
-        } else if (this.props.users[0][id].checkedin) {
+        } else if (this.props.reservation) {
             return(
                 <DocumentTitle title="Reserve">
                 <div>
@@ -55,6 +54,7 @@ class Reserve extends Component {
         }
         const { handleSubmit } = this.props;
         return(
+            <DocumentTitle title="Reserve">
             <div>
                 <Navigation />
                 <div id = "information">
@@ -98,6 +98,7 @@ class Reserve extends Component {
                     </form>
                 </div>
             </div>
+        </DocumentTitle>
     )
     }
 }
@@ -105,7 +106,8 @@ class Reserve extends Component {
 function mapStateToProps(state){
     return {
         place: state.places,
-        users: state.users
+        users: state.users,
+        reservation: state.reservation
     }
 }
 
