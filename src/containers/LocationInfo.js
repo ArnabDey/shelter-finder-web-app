@@ -9,8 +9,8 @@ import Navigation from './Navigation';
 
 class LocationInfo extends Component {
     render() {
-        if (!this.props.place || (!this.props.users
-            || Object.keys(this.props.users).length !== 1)) {
+        if (!this.props.place || Object.keys(this.props.place).length !== 1
+            || (!this.props.users || Object.keys(this.props.users).length !== 1)) {
             return(
                 <DocumentTitle title="Location">
                 <div> Waiting for location to get selected </div>

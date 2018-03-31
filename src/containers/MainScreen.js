@@ -26,11 +26,11 @@ class MainScreen extends Component {
   }
 
   renderRows() {
-    // console.log("here", this.props.reservation);
     if (this.props.users && this.props.places) {
       return _.map(this.props.places,(sample) => {
         return(
                 <tr key = {sample.ShelterName}
+                  className = "rowShelter"
                   onClick={() => {
                       this.props.selectPlace(sample)
                       this.props.history.push('/place/');
@@ -123,7 +123,7 @@ class MainScreen extends Component {
             </div>
             <br />
             <div className = "mapView">
-                <h4 id="title"> Select a row for more information and to reserve</h4>
+                <h4 id="title"> Click a row for more information and to reserve</h4>
                 <Link to = "/mapshelter"
                   className = "btn btn-primary"
                   id = "entryButton"> Map View </Link>

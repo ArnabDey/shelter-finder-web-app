@@ -13,6 +13,7 @@ export default function(state = null, action) {
         case CHECK_OUT:
             return action.payload;
         case LOG_OUT:
+            console.log("here")
             state = undefined;
             return undefined;
         default:

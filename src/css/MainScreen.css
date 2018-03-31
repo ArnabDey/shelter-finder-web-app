@@ -32,6 +32,10 @@ table, th, td {
     border-collapse: collapse;
 }
 
+.rowShelter:hover {
+    background-color: #C0C0C0;
+}
+
 tr {
     padding: 20px;
 }

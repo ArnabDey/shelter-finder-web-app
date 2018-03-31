@@ -13,7 +13,7 @@ class Navigation extends Component {
             <ul>
                 <Link to = "/mainscreen" className = "btn"> All Shelters </Link>
                 <Link to = "/reservations" className = "btn"> Reservations </Link>
-                <Link to = "/" className = "btn" onClick={this.signOut}> Sign Out </Link>
+                <Link to = "/signIn" className = "btn" onClick={this.signOut}> Sign Out </Link>
             </ul>
 
         );
