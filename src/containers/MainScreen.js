@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectPlace, getFiltered, getReservation } from '../actions/index';
-import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
 
-
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 import '../css/MainScreen.css';
 
 class MainScreen extends Component {
@@ -27,7 +25,7 @@ class MainScreen extends Component {
   }
 
   renderRows() {
-    console.log("here", this.props.reservation);
+    // console.log("here", this.props.reservation);
     if (this.props.users && this.props.places) {
       return _.map(this.props.places,(sample) => {
         return(
@@ -83,7 +81,7 @@ class MainScreen extends Component {
           }
       }
       if (Object.keys(filtered).length === 0) {
-        alert("There is no shelter with the value " + valFilter);
+        alert("There is no shelter with the value \"" + valFilter + "\"");
       }
       this.props.getFiltered(filtered);
       this.renderRows();

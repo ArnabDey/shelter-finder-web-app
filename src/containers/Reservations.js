@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { checkOut, getReservation } from '../actions/index';
-import { bindActionCreators } from 'redux';
 
 import '../css/Reservations.css';
 
 
 class Reservations extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
-        console.log("RESERVATIONS", this.props.reservation);
+        // console.log("RESERVATIONS", this.props.reservation);
         if (!this.props.users) {
             return(
             <div> Cannot view without signing in </div>
@@ -30,6 +26,7 @@ class Reservations extends Component {
                     onClick={() => {
                                 this.props.checkOut(this.props.users);
                                 this.props.users[0][id].checkedin = false;
+                                this.props.history.push('/mainscreen');
                     }}> Cancel Reservations </Link>
                 </div>
                 ):
@@ -38,16 +35,24 @@ class Reservations extends Component {
                 className = "btn btn-primary"> Make Reservations
                 </Link>
             );
+        const currentlyCheckedIn = this.props.users[0][id].checkedin ? (
+            <h3> You are currently checked in </h3>
+            ) : (
+            <h3> You are not currently checked in </h3>
+            );
         return(
             <div>
                 <Navigation />
-                <div id="information">
-                    <h1> Profile Information </h1>
-                    <h4> Username: {this.props.users[0][id].username} </h4>
-                    <h4> Checked In: {this.props.users[0][id].checkedin.toString()} </h4>
-                    <br/>
-                    <br/>
-                    {cancelOption}
+                <div className="row">
+                    <div className = "col-sm-4" id= "information">
+                        <h1> Profile Information </h1>
+                        <h4> Username: {this.props.users[0][id].username} </h4>
+                    </div>
+                    <div className = "col-sm-8" id ="information">
+                        {currentlyCheckedIn}
+                        <br/>
+                        {cancelOption}
+                    </div>
                 </div>
             </div>
         )

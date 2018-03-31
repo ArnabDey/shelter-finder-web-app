@@ -30,8 +30,6 @@ class Register extends Component {
   }
   createUser(value) {
     this.props.addUser(value);
-    const users = this.props.users;
-    let findId;
     this.props.history.push('/signin');
   }
   render() {

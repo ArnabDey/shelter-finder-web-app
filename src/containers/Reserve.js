@@ -7,26 +7,23 @@ import { Link } from 'react-router-dom';
 
 import '../css/LocationInfo.css';
 
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 
 class Reserve extends Component {
-    constructor(props) {
-        super(props);
-    }
     reserveSubmit(value) {
         if (isNaN(value.numBeds)) {
-            console.log("Not a valid number");
-        } else if (parseInt(value.numBeds) > this.props.place[0].Capacity) {
+
+        } else if (parseInt(value.numBeds, 10) > this.props.place[0].Capacity) {
             alert("not possible")
-            console.log(`This reservation of ${value.numBeds} cannot be made because it exceeds the limit of ${this.props.place[0].Capacity} people`);
+            // console.log(`This reservation of ${value.numBeds} cannot be made because it exceeds the limit of ${this.props.place[0].Capacity} people`);
         } else {
-            this.props.reserveDB(this.props.place[0], parseInt(value.numBeds), this.props.users);
+            this.props.reserveDB(this.props.place[0], parseInt(value.numBeds, 10), this.props.users);
             this.props.checkIn(this.props.users);
             let id = Object.keys(this.props.users[0]);
             this.props.users[0][id].checkedin = true;
             this.props.place[0].ShelterName = this.props.place[0].ShelterName - value.numBeds;
             this.props.history.push('/mainscreen');
-            console.log("after check in",this.props.place[0]);
+            // console.log("after check in",this.props.place[0]);
         }
     }
     render() {

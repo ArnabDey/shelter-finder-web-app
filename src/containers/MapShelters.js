@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import GoogleMapReact, {Marker} from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 
 
 import _ from 'lodash';
@@ -9,9 +9,6 @@ import '../css/MapShelters.css';
 
 
 class MapShelters extends Component {
-    constructor(props) {
-        super(props);
-    }
     addMarkers(map, maps) {
         if (this.props && this.props.places) {
             return _.map(this.props.places,(sample) => {
@@ -27,7 +24,6 @@ class MapShelters extends Component {
                 let infoWindow = new maps.InfoWindow({
                     content: "<strong>" + sample.ShelterName + "</strong>" + "<br>"
                     + sample.Address + "<br/> Capacity: " + sample.Capacity
-                    // sample.ShelterName + "\n" + sample.Address
                 })
                 marker.addListener('click', () => {
                     infoWindow.open(map, marker)
@@ -35,9 +31,6 @@ class MapShelters extends Component {
 
             })
         }
-    }
-    window() {
-        console.log("here")
     }
     displayLocations() {
         if (this.props) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/LocationInfo.css';
 
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 
 
 class LocationInfo extends Component {
@@ -13,7 +13,6 @@ class LocationInfo extends Component {
                 <div> Waiting for location to get selected </div>
                 );
         }
-        console.log(this.props.place)
         return(
             <div>
                 <Navigation />
