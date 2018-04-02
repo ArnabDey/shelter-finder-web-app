@@ -10,7 +10,7 @@ class Entry extends Component {
     return (
       <DocumentTitle title ="Homeless Shelter Finder">
       <div className="redirectpage">
-            <h1 id="title"> Homeless Shelter Finder </h1>
+            <h1 id="titleEntry"> Homeless Shelter Finder </h1>
             <div id="buttonControl">
               <Link to = "/register" className = "btn btn-primary" id = "entryButton"> Register </Link>
               <Link to = "/signIn" className = "btn btn-primary" id = "entryButton"> Sign In </Link>

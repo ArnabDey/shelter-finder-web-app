@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrUser, getUsers, addUser } from '../actions';
 import DocumentTitle from 'react-document-title';
 
-import '../css/SignIn.css';
+import '../css/Register.css';
 
 class Register extends Component {
   constructor(props) {
@@ -37,20 +37,20 @@ class Register extends Component {
     const { handleSubmit } = this.props;
     return (
     <DocumentTitle title="Register">
-    <div >
+    <div className="registerHome">
       <form
-        id="signInForm"
+        id="registerForm"
         onSubmit={handleSubmit(this.signIn.bind(this))}>
-        <h1> Register </h1>
-        <h5> Enter username and password to register </h5>
-        <div className="contentForm">
+        <div className="contentFormRegister">
+          <h1 id="registerHeading"> Register </h1>
+          <h5> Enter username and password to register </h5>
           <label> Username </label>
           <Field
             label="Username"
             name="username"
             type="text"
             component="input"
-            id="signInContent"
+            id="registerContent"
             required
           />
           <label> Password </label>
@@ -59,7 +59,7 @@ class Register extends Component {
             name="password"
             component="input"
             type="password"
-            id="signInContent2"
+            id="registerContent2"
             required
           />
           <div>
@@ -67,7 +67,7 @@ class Register extends Component {
               type= "submit"
               className="btn btn-primary"
               >Register</button>
-            <Link to = "/" className = "btn btn-primary" id = "entryButton"> Cancel </Link>
+            <Link to = "/" className = "btn btn-danger" id = "entryButton"> Cancel </Link>
           </div>
         </div>
       </form>

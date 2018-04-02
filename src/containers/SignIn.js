@@ -51,13 +51,13 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
     return (
     <DocumentTitle title = "Sign In">
-    <div >
+    <div className="signIn">
       <form
         id="signInForm"
         onSubmit={handleSubmit(this.signIn.bind(this))}>
-        <h1> Sign In </h1>
-        <div className="contentForm">
-          <label> Username </label>
+        <div className="contentFormSignIn">
+          <h1 id="signInHeading"> Sign In </h1>
+          <label id="username"> Username </label>
           <Field
             label="Username"
             name="username"
@@ -66,7 +66,7 @@ class SignIn extends Component {
             id="signInContent"
             required
           />
-          <label> Password </label>
+          <label id="password"> Password </label>
           <Field
             label="Password"
             name="password"
@@ -80,7 +80,7 @@ class SignIn extends Component {
               type= "submit"
               className="btn btn-primary"
               >Sign In</button>
-            <Link to = "/" className = "btn btn-primary" id = "entryButton"> Cancel </Link>
+            <Link to = "/" className = "btn btn-danger" id = "entryButton"> Cancel </Link>
           </div>
         </div>
       </form>

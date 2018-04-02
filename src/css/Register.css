@@ -1,3 +1,19 @@
+.registerHome {
+    background: linear-gradient(to right, #1A2980, #26D0CE);
+}
+
+.registerHome:before{
+    background: rgba(0,0,0,0.7);
+}
+
+#username {
+    font-family: Helvetica;
+}
+
+#password {
+    font-family: Helvetica;
+}
+
 #registerForm {
     height: 100vh;
     display: flex;
@@ -6,30 +22,43 @@
     justify-content: center;
 }
 
-#contentRegisterForm {
+#registerHeading {
+    padding-top: 50px;
+}
+
+.contentFormRegister {
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-/*    box-shadow: 5px 10px #888888;
-    padding: 50px 100px;
-    /*border: 2px solid black;*/
+    justify-content: flex-start;
+    width: 30%;
+    border: solid;
+    background-color: white;
+    height: 45%;
 }
 
-#registerContent {
+#registerContent, #registerContent2 {
     margin: 5px;
-/*    padding: 10px;
-*/}
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#cancelButton {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+}
+#submitButton {
+    padding: 10px;
+    margin: 10px;
+    width: 80px;
+    border-radius: 8px;
+}
+#submitButton:hover, #cancelButton:hover {
+    background-color: #DCDCDC;
+}
 
 input {
     width: 150px;
-}
-
-
-#entryButton {
-    margin: 20px;
- }
-
-#rButton:hover, #cancelButton:hover {
-    background-color: #DCDCDC;
 }
