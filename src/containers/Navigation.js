@@ -10,10 +10,10 @@ class Navigation extends Component {
     }
     render() {
         return(
-            <ul>
-                <Link to = "/mainscreen" className = "btn"> All Shelters </Link>
-                <Link to = "/reservations" className = "btn"> Reservations </Link>
-                <Link to = "/signIn" className = "btn" onClick={this.signOut}> Sign Out </Link>
+            <ul id="navbar">
+                <Link id="toMainscreen" to = "/mainscreen" className = "btn"> All Shelters </Link>
+                <Link id="toReservations" to = "/reservations" className = "btn"> Reservations </Link>
+                <Link id="toSignIn" to = "/signIn" className = "btn" onClick={this.signOut}> Sign Out </Link>
             </ul>
 
         );
