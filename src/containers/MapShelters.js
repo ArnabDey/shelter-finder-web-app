@@ -13,8 +13,8 @@ class MapShelters extends Component {
     addMarkers(map, maps) {
         if (this.props && this.props.places) {
             return _.map(this.props.places,(sample) => {
-                let lat = parseFloat(sample["Latitude "]);
-                let long = parseFloat(sample["Longitude "]);
+                let lat = parseFloat(sample["Latitude"]);
+                let long = parseFloat(sample["Longitude"]);
                 let coordinates = { lat: lat, lng: long};
 
                 let marker = new maps.Marker({
